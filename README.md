@@ -1,6 +1,6 @@
 # Ecertic
 
-This gem is a thin Ruby wrapper for the Ecertic OTP API <https://docs.otpsecure.net/>. It provides the
+Non-official Ruby client for Ecertic OTP API <https://docs.otpsecure.net/>. It provides the necessary scaffolding to easily upload a PDF file to Ecertic's API and request the delivery of an OTP to a given phone for its validation.
 
 ## Installation
 
@@ -32,16 +32,16 @@ client = Ecertic::Client.new(apikey: "APIKEY", secret: "SECRET")
 
 info = {
   sandbox: true,
-  movil: "669819258",
-  smsusr: "selavon@fp",
-  smspwd: "selavon01",
+  movil: "669010101",
+  smsusr: "smsusr",
+  smspwd: "smspwd",
   pdf_files: [File.open("contract.pdf")],
 }
 
 request = client.otps.create(info)
 # request.token => "d98509b2aa....3cff10a8b47"
 # request.uuid => "rJwJnaKXS"
-# In the sandbox environment you will get OTP number too
+# In the sandbox environment you will get the OTP itself too
 # request.otp => "147548"
 
 status = client.otps.status(request.token)
@@ -57,7 +57,7 @@ validation = client.tokens.validate(request.token, request.otp)
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `bundle exec rake spec` to run the tests or if you prefer auto reloading specs run `bundle exec guard`. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 

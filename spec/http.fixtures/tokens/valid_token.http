@@ -1,0 +1,15 @@
+HTTP/1.1 200 OK
+Server: nginx/1.4.6 (Ubuntu)
+Date: Fri, 09 Aug 2019 09:57:51 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 221
+Connection: close
+X-Powered-By: Express
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Content-Type, authorization, Origin, X-Requested-With, Content-Type, Accept
+Vary: X-HTTP-Method-Override
+Access-Control-Allow-Methods: GET,PUT,POST,DELETE,OPTIONS
+X-Content-Type-Options: nosniff
+ETag: W/"dd-RAQUisFMA1VTDL0U3Zvfxw"
+
+{"html":"Al introducir el código recibido por SMS, que sustituye a mi firma manuscrita, confirmo que he recibido, leído y que acepto <a href=\"http://otpsecure.es/moLaE\">el Contrato</a>","checks":[],"uuid":"BJ5CYudmS"}

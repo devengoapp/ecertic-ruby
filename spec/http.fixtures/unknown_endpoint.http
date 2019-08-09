@@ -1,0 +1,14 @@
+HTTP/1.1 404 Not Found
+Server: nginx/1.4.6 (Ubuntu)
+Date: Wed, 07 Aug 2019 17:50:55 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 17
+Connection: close
+X-Powered-By: Express
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Content-Type, authorization, Origin, X-Requested-With, Content-Type, Accept
+Vary: X-HTTP-Method-Override
+Access-Control-Allow-Methods: GET,PUT,POST,DELETE,OPTIONS
+X-Content-Type-Options: nosniff
+
+Cannot POST /foo

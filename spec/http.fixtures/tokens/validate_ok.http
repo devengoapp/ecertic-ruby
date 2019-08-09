@@ -1,0 +1,14 @@
+HTTP/1.1 200 OK
+Server: nginx/1.4.6 (Ubuntu)
+Date: Fri, 09 Aug 2019 10:29:58 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 40
+Connection: close
+X-Powered-By: Express
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Content-Type, authorization, Origin, X-Requested-With, Content-Type, Accept
+Vary: X-HTTP-Method-Override
+Access-Control-Allow-Methods: GET,PUT,POST,DELETE,OPTIONS
+ETag: W/"28-To2sBvGxZpptK6aM2+KZMg"
+
+{"status":"OTP_OK","msg":"OTP CORRECTA"}

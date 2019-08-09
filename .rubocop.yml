@@ -17,10 +17,17 @@ Metrics/LineLength:
   Exclude:
     - "spec/**/*.rb"
 
+# [codesmell]
+Metrics/BlockLength:
+  Enabled: false
+
 Metrics/MethodLength:
   Max: 50
 
 Metrics/ModuleLength:
+  Enabled: false
+
+Style/Documentation:
   Enabled: false
 
 Style/AccessModifierDeclarations:

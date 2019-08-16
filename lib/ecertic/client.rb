@@ -18,7 +18,6 @@ module Ecertic
       Thread.current[:ecertic_client_default_connection] ||= begin
         Faraday.new do |builder|
           builder.use Faraday::Response::RaiseError
-          # builder.response :logger, ::Logger.new(STDOUT), bodies: true
           builder.response :json,
                            content_type: /\bjson$/,
                            preserve_raw: true, parser_options: { symbolize_names: true }
@@ -48,13 +47,16 @@ module Ecertic
       uri = "#{base_url}#{path}"
 
       begin
+        request_start = Time.now
+        log_request(method, path, request_options[:body], request_options[:headers])
         response = connection.run_request(method, uri, request_options[:body], request_options[:headers]) do |req|
           # req.options.open_timeout = Ecertic.open_timeout
           # req.options.timeout =  Ecertic.read_timeout
         end
-        # log_response(context, request_start, resp.status, resp.body)
+        log_response(request_start, method, path, response.status, response.body)
+        response
       rescue StandardError => e
-        # log_response_error(error_context, request_start, e)
+        log_response_error(request_start, e, method, path)
         case e
         when Faraday::ClientError
           if e.response
@@ -70,7 +72,7 @@ module Ecertic
     end
 
     private def handle_network_error(error)
-      # Util.log_error("Ecertic network error", error_message: error.message)
+      Ecertic::Utils.log_error("Ecertic network error", error_message: error.message)
 
       message = case error
                 when Faraday::ConnectionFailed
@@ -112,12 +114,7 @@ module Ecertic
     end
 
     private def specific_api_error(response)
-      # Util.log_error("Eeertic API error",
-      #                status: resp.http_status,
-      #                error_code: error_data[:code],
-      #                error_message: error_data[:message],
-      #                error_param: error_data[:param],
-      #                error_type: error_data[:type])
+      Ecertic::Utils.log_error("Ecertic API error", status: response.status)
 
       error = case response.status
               when 400, 404
@@ -178,6 +175,28 @@ module Ecertic
 
     private def content_data(headers, data)
       headers["Content-Type"] == "application/json" ? data.to_json : data
+    end
+
+    private def log_request(method, path, body, headers)
+      Ecertic::Utils.log_info("Request to Ecertic API", method: method, path: path)
+      Ecertic::Utils.log_debug("Request details", body: body, headers: headers)
+    end
+
+    private def log_response(request_start, method, path, status, body)
+      Ecertic::Utils.log_info("Response from Ecertic API",
+                              elapsed: Time.now - request_start,
+                              method: method,
+                              path: path,
+                              status: status)
+      Ecertic::Utils.log_debug("Response details", body: body)
+    end
+
+    private def log_response_error(request_start, error, method, path)
+      Ecertic::Utils.log_error("Request error",
+                               elapsed: Time.now - request_start,
+                               error_message: error.message,
+                               method: method,
+                               path: path)
     end
   end
 end

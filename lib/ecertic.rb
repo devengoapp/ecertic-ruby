@@ -43,6 +43,15 @@ module Ecertic
   end
 
   def self.log_level=(val)
+    # Support text values for easy log level definition from command line via export
+    val = case val
+          when "debug"
+            LEVEL_DEBUG
+          when "info"
+            LEVEL_INFO
+          else
+            val
+          end
     if !val.nil? && ![LEVEL_DEBUG, LEVEL_ERROR, LEVEL_INFO].include?(val)
       raise ArgumentError,
             "log_level should only be set to `nil`, `debug` or `info`"
